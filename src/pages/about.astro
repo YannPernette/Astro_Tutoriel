@@ -1,7 +1,5 @@
 ---
-import "../styles/global.css";
-import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
 
 const pageTitle = "À propos de moi";
 
@@ -17,89 +15,55 @@ const skills = ["HTML", "CSS", "JavaScript", "Vue", "Astro", "Nuxt"];
 const happy = true;
 const finished = false;
 const goal = 3;
-
-const skillColor = "navy";
-const fontWeight = "bold";
-const textCase = "uppercase";
 ---
 
-<html lang="fr">
-    <head>
-        <meta charset="utf-8" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <meta name="viewport" content="width=device-width" />
-        <meta name="generator" content={Astro.generator} />
-        <title>{pageTitle}</title>
+<BaseLayout pageTitle={pageTitle} />
 
-        <style define:vars={{ skillColor, fontWeight, textCase }}>
-            h1 {
-                color: purple;
-                font-size: 4rem;
-            }
-            .skill {
-                color: var(--skillColor);
-                font-weight: var(--fontWeight);
-                text-transform: var(--textCase);
-            }
-        </style>
-    </head>
+<h2>... et de mon nouveau site Astro !</h2>
 
-    <body>
-        <Header />
+<p>
+    Je suis en train de suivre le tutoriel d'introduction d'Astro. C'est la
+    deuxième page de mon site web, et c'est la première que j'ai construite
+    moi-même !
+</p>
 
-        <h1>{pageTitle}</h1>
-        <h2>... et de mon nouveau site Astro !</h2>
+<p>
+    Ce site se mettra à jour au fur et à mesure que je compléterai davantage le
+    tutoriel, alors revenez régulièrement voir comment se déroule mon parcours !
+</p>
 
-        <p>
-            Je suis en train de suivre le tutoriel d'introduction d'Astro. C'est
-            la deuxième page de mon site web, et c'est la première que j'ai
-            construite moi-même !
-        </p>
-
-        <p>
-            Ce site se mettra à jour au fur et à mesure que je compléterai
-            davantage le tutoriel, alors revenez régulièrement voir comment se
-            déroule mon parcours !
-        </p>
-
-        <p>Voici quelques faits me concernant :</p>
-        <ul>
-            <li>Je m'appelle {identity.firstName}.</li>
+<p>Voici quelques faits me concernant :</p>
+<ul>
+    <li>Je m'appelle {identity.firstName}.</li>
+    <li>
+        Je vis en {identity.country} et je travaille en tant que {
+            identity.occupation
+        }.
+    </li>
+    {
+        identity.hobbies.length >= 2 && (
             <li>
-                Je vis en {identity.country} et je travaille en tant que {
-                    identity.occupation
-                }.
+                Deux de mes loisirs sont : {identity.hobbies[0]} et{" "}
+                {identity.hobbies[1]}
             </li>
-            {
-                identity.hobbies.length >= 2 && (
-                    <li>
-                        Deux de mes loisirs sont : {identity.hobbies[0]} et{" "}
-                        {identity.hobbies[1]}
-                    </li>
-                )
-            }
-        </ul>
-        <p>Voici mes compétences :</p>
-        <ul>
-            {skills.map((skill) => <li class="skill">{skill}</li>)}
-        </ul>
+        )
+    }
+</ul>
 
-        {happy && <p>Je suis heureux d'apprendre Astro !</p>}
+<p>Voici mes compétences :</p>
+<ul>
+    {skills.map((skill) => <li class="skill">{skill}</li>)}
+</ul>
 
-        {finished && <p>J'ai terminé ce tutoriel !</p>}
+{happy && <p>Je suis heureux d'apprendre Astro !</p>}
 
-        {
-            goal === 3 ? (
-                <p>Mon objectif est de terminer en 3 jours.</p>
-            ) : (
-                <p>Mon objectif n'est pas de 3 jours.</p>
-            )
-        }
+{finished && <p>J'ai terminé ce tutoriel !</p>}
 
-        <Footer />
-
-        <script>
-			import "../scripts/menu.js";
-		</script>
-    </body>
-</html>
+{
+    goal === 3 ? (
+        <p>Mon objectif est de terminer en 3 jours.</p>
+    ) : (
+        <p>Mon objectif n'est pas de 3 jours.</p>
+    )
+}
+</BaseLayout>
